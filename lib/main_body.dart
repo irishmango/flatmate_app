@@ -1,6 +1,10 @@
 import 'package:flatmate_app/explore_screen_widget.dart';
+import 'package:flatmate_app/for_you/presentation/for_you_screen_widget.dart';
 import 'package:flatmate_app/main.dart';
-import 'package:flatmate_app/match_screen_widget.dart';
+import 'package:flatmate_app/swipe/presentation/filter_screen.dart';
+import 'package:flatmate_app/swipe/presentation/match_screen_widget.dart';
+import 'package:flatmate_app/messages/messages_screen_widget.dart';
+import 'package:flatmate_app/profile_screen_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainBody extends StatefulWidget {
@@ -22,17 +26,17 @@ class _MainBodyState extends State<MainBody> {
       body: IndexedStack(
         index: _selectedPage,
         children: [
-          SingleChildScrollView(child: Container()), 
+          SingleChildScrollView(child: ForYouScreenWidget()), 
           SingleChildScrollView(child: ExploreScreenWidget()), 
           MatchScreenWidget(), 
-          SingleChildScrollView(child: Container()), 
-          SingleChildScrollView(child: Container()), 
+          SingleChildScrollView(child: MessagesScreenWidget()), 
+          SingleChildScrollView(child: ProfileScreenWidget()), 
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white70,
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color.fromARGB(255, 10, 134, 43),
         currentIndex: _selectedPage,
         onTap: (index) {
           setState(() {
@@ -40,7 +44,7 @@ class _MainBodyState extends State<MainBody> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Matches'),
+          BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'For You'),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Explore'),
           BottomNavigationBarItem(icon: Icon(Icons.people), label: 'Meet'),
           BottomNavigationBarItem(icon: Icon(Icons.message), label: 'Messages'),
@@ -50,15 +54,22 @@ class _MainBodyState extends State<MainBody> {
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar? _buildAppBar() {
   switch (_selectedPage) {
     case 0:
-      return AppBar(title: Text("Matches"));
+      return AppBar(
+        title: Text("Matches"), 
+        backgroundColor: Colors.white,
+        automaticallyImplyLeading: false,
+        );
     case 1:
       return AppBar(
         backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        scrolledUnderElevation: 0,
         title: const Text(
-          "The world is waiting",
+          "Find your home",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         centerTitle: false,
@@ -69,7 +80,7 @@ class _MainBodyState extends State<MainBody> {
         leading: IconButton(
           icon: const Icon(Icons.filter_list),
           onPressed: () {
-            // TODO: Implement filter functionality
+            Navigator.push(context, MaterialPageRoute(builder: (context) => FilterScreen()));
           },
         ),
         title: const Text(
@@ -79,12 +90,11 @@ class _MainBodyState extends State<MainBody> {
         centerTitle: true,
       );
     case 3:
-      return AppBar(title: Text("Messages"));
+      return AppBar(title: Text("Messages"), backgroundColor: Colors.white,);
     case 4:
-      return AppBar(title: Text("Profile"));
+      return null;
     default:
-      return AppBar(title: Text("App"));
+      return AppBar(title: Text("App"), backgroundColor: Colors.white,);
   }
 }
 }
-

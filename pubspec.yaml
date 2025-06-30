@@ -64,6 +64,7 @@ flutter:
     - 'assets/cities/neighbourhoods/schoeneberg.avif'
     - 'assets/cities/neighbourhoods/kreuzberg.jpg'
     - 'assets/people/'
+    - 'assets/cities/'
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

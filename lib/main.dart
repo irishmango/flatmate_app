@@ -1,3 +1,5 @@
+import 'package:flatmate_app/auth/presentation/login_screen.dart';
+import 'package:flatmate_app/auth/presentation/register_screen.dart';
 import 'package:flatmate_app/main_body.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainBody(),
+      theme: ThemeData(colorSchemeSeed: Colors.green),
+      home: RegisterScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -11,12 +11,24 @@ class ExploreScreenWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Where do you wanna live?',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Where do you wanna live?',
+                    prefixIcon: const Icon(Icons.search),
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
                   ),
                 ),
               ),
@@ -42,21 +54,23 @@ class ExploreScreenWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                        color: Colors.grey
+                      )
                     ),
-                    child: const Text("Post room"),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Post Room"),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 20),
               const Text(
-                "Neighborhoods for you",
+                "Neighborhoods in your city",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(height: 12),
@@ -65,19 +79,50 @@ class ExploreScreenWidget extends StatelessWidget {
                 child: ListView(
                   physics: NeverScrollableScrollPhysics(),
                   children: [
-                    _neighborhoodCard('Kreuzberg', 'assets/cities/neighbourhoods/kreuzberg.jpg'),
-                    _neighborhoodCard('Neukölln', 'assets/cities/neighbourhoods/mitte.jpg'),
-                    _neighborhoodCard('Mitte', 'assets/cities/neighbourhoods/neukoelln.jpg'),
-                    _neighborhoodCard('Schöneberg', 'assets/cities/neighbourhoods/schoeneberg.avif'),
+                    LocationCard('Kreuzberg', 'assets/cities/neighbourhoods/kreuzberg.jpg'),
+                    LocationCard('Mitte', 'assets/cities/neighbourhoods/mitte.jpg'),
+                    LocationCard('Neukölln', 'assets/cities/neighbourhoods/neukoelln.jpg'),
+                    LocationCard('Schöneberg', 'assets/cities/neighbourhoods/schoeneberg.avif'),
                   ],
                 ),
-              )
+              ),
+              const SizedBox(height: 24),
+              const Text(
+                "Popular cities in Germany",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              ),
+              const SizedBox(height: 12),
+              GridView.count(
+                crossAxisCount: 2,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 3 / 2,
+                children: [
+                  LocationCard('Frankfurt', 'assets/cities/frankfurt.jpg'),
+                  LocationCard('Hamburg', 'assets/cities/hamburg.jpg'),
+                  LocationCard('Munich', 'assets/cities/munich.jpg'),
+                  LocationCard('Köln', 'assets/cities/cologne.jpg'),
+                  LocationCard('Leipzig', 'assets/cities/leipzig.jpg'),
+                  LocationCard('Hannover', 'assets/cities/hannover.jpg'),
+                ],
+              ),
             ],
           ),
     );
   }
 
-  Widget _neighborhoodCard(String title, String assetPath) {
+}
+
+class LocationCard extends StatelessWidget {
+  final String title;
+  final String assetPath;
+
+  const LocationCard(this.title, this.assetPath, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       height: 150,
